@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# pycharm
+.idea
+
+# local_settings
+CloudP0Events/CloudP0Events/local_settings.py

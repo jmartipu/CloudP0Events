@@ -108,3 +108,6 @@ venv.bak/
 
 # local_settings
 CloudP0Events/CloudP0Events/local_settings.py
+
+# migrations
+CloudP0Events/eventos/migrations/

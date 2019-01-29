@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Eventos{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'eventos/js/listar_eventos.js' %}"></script>
+    <script type="text/javascript" src="{% static 'eventos/js/helpers.js' %}"></script>
+{% endblock script %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    Hola {{ user.username }}! <a href="{% url 'eventos:logout' %}">Cerrar sesion</a>
+    <div class="header row">
+    <div class="col-lg-6">
+        <h3><b>Listado de eventos</b></h3>
+    </div>
+
+    </div>
+    <div class="col-lg-10">
+        <div>
+            <button class="btn btn-primary mb-2 float-right" onClick="goToUrl('eventos/evento/crear_evento/')">Crear Evento</button>
+        </div>
+        <table id="lista_eventos_table" class="table">
+
+        </table>
+    </div>
+
+
+{% else %}
+    <div class ='row'>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="page header">
+                <h2>Iniciar Sesión</h2>
+            </div>
+            <form id="login_form" class="form-group" method="post" action="{% url 'eventos:login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label" form="usuario">Nombre de usuario</label>
+                    <input type="text" id="usuario" name="usuario" class="form-control" value="{{ usuario }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" name="contrasena" id="contrasena" class="form-control">
+                </div>
+                <button type="submit" id="aceptar" class="btn btn-primary">Ingresar</button>
+            </form>
+            <a href="{% url 'eventos:registro' %}" >   Registro</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

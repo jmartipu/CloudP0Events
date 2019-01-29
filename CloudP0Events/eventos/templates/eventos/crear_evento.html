@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Crear Evento{% endblock %}
+{% block script %}
+       <script type="text/javascript" src="{% static 'eventos/js/crear_evento.js' %}"></script>
+{% endblock script %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-offset-3">
+        <div class="page-header">
+            <h2>Crear Evento</h2>
+        </div>
+
+        <form id="formulario_crear_evento" class="form-group" method="post" action="{% url 'eventos:adicionar_evento' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <input type="submit" value="Crear"class="btn btn-primary" id="btn_crear">
+            <a href="{% url 'eventos:index' %}" class="btn btn-primary">Cancel</a>
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

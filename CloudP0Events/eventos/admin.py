@@ -7,7 +7,7 @@ from .models import Categoria, Evento
 class CategoriaAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['nombre', 'usuario_creacion']}),
-        ('Date information', {'fields': ['fecha_creacion']}),
+        ('Date information', {'fields': ['fecha_creacion', 'hora_creacion']}),
     ]
 
 
@@ -15,7 +15,7 @@ class EventoAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['nombre', 'categoria', 'usuario_creacion']}),
         ('Información de lugar', {'fields': ['lugar', 'direccion', 'es_presencial']}),
-        ('Información de fechas', {'fields': ['fecha_inicio', 'fecha_fin', 'fecha_creacion']}),
+        ('Información de fechas', {'fields': ['fecha_inicio', 'fecha_fin', 'fecha_creacion', 'hora_creacion']}),
     ]
 
 

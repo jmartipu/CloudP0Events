@@ -20,10 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=hdnvypsm7d(u+nr!swh#t_=wrpsvp^pm(bag2-z=pn73f-w-v'
+# SECRET_KEY = '=hdnvypsm7d(u+nr!swh#t_=wrpsvp^pm(bag2-z=pn73f-w-v'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=hdnvypsm7d(u+nr!swh#t_=wrpsvp^pm(bag2-z=pn73f-w-v')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eventos.apps.EventosConfig',
     'crispy_forms',
+    'bootstrap3',
 
 ]
 

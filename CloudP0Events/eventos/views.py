@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 
-import datetime
-
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -9,10 +7,9 @@ from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_list_or_404
 from django.urls import reverse
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Evento, UserForm, Categoria, EventoForm
-
+from django.utils import timezone
 
 # Create your views here.
 
@@ -81,7 +78,7 @@ def logout_service(request):
 def lista_eventos_service(request):
     if request.user.is_authenticated:
         usuario = User.objects.filter(username=request.user).first()
-        lista = Evento.objects.filter(usuario_creacion=usuario).order_by('-fecha_creacion')
+        lista = Evento.objects.filter(usuario_creacion=usuario).order_by('-fecha_creacion', '-hora_creacion')
         return HttpResponse(serializers.serialize("json", lista))
     return HttpResponseRedirect(reverse('eventos:index'))
 
@@ -112,7 +109,6 @@ def editar_detalle_evento(request, evento_id):
         usuario_autenticado = User.objects.filter(username=request.user).first()
         if usuario_autenticado is not None:
             evento_editar = Evento.objects.filter(id=evento_id, usuario_creacion=usuario_autenticado).first()
-
             if evento_editar is not None:
                 try:
                     evento_editar.nombre = request.POST['nombre']
@@ -120,8 +116,8 @@ def editar_detalle_evento(request, evento_id):
                     evento_editar.categoria = categoria_seleccionada
                     evento_editar.lugar = request.POST['lugar']
                     evento_editar.direccion = request.POST['direccion']
-                    evento_editar.finicio = request.POST['finicio']
-                    evento_editar.ffin = request.POST['ffin']
+                    evento_editar.fecha_inicio = request.POST['finicio']
+                    evento_editar.fecha_fin = request.POST['ffin']
                     evento_editar.es_presencial = True if request.POST.get('es_presencial', None) else False
                     evento_editar.save()
                     messages.success(request, "Evento editado con exito!", extra_tags='alert alert-success')
@@ -173,7 +169,8 @@ def adicionar_evento(request):
                     try:
                         evento_model = Evento(nombre=nombre, categoria=categoria, lugar=lugar, direccion=direccion,
                                               fecha_inicio=fecha_inicio, fecha_fin=fecha_fin,
-                                              fecha_creacion=timezone.now(), es_presencial=bool_presencial,
+                                              fecha_creacion=timezone.now().date(), hora_creacion=timezone.now().strftime("%H:%M:%S"),
+                                              es_presencial=bool_presencial,
                                               usuario_creacion=usuario_creacion)
 
                         evento_model.save()

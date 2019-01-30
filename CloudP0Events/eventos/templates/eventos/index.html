@@ -39,12 +39,12 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="control-label" form="usuario">Nombre de usuario</label>
-                    <input type="text" id="usuario" name="usuario" class="form-control" value="{{ usuario }}">
+                    <input type="text" id="usuario" name="usuario" class="form-control" value="{{ usuario }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="contrasena">Contraseña</label>
-                    <input type="password" name="contrasena" id="contrasena" class="form-control">
+                    <input type="password" name="contrasena" id="contrasena" class="form-control" required>
                 </div>
                 <button type="submit" id="aceptar" class="btn btn-primary">Ingresar</button>
             </form>

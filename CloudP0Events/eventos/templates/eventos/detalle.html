@@ -28,10 +28,8 @@
                 </select><br>
                 <b>Lugar: </b><input class="form-control" type="text" name="lugar" value="{{ evento_seleccionado.lugar }}"><br>
                 <b>Direccion: </b><input class="form-control" type="text" name="direccion" value="{{ evento_seleccionado.direccion }}"><br>
-                <b>Fecha Inicio: </b>
-                <input id="finicio" type="text" class="form-control" name="finicio" value=" {{evento_seleccionado.fecha_inicio}}  "><br>
-
-                <b>Fecha Fin: </b><input class="form-control" type="text" name="ffin" value="{{ evento_seleccionado.fecha_fin }}"><br>
+                <b>Fecha Inicio: </b><input id="finicio", name="finicio" type="text" class="form-control" value="{{evento_seleccionado.fecha_inicio|date:'Y-m-d'}}"><br>
+                <b>Fecha Fin: </b><input id="ffin", name="ffin" class="form-control" type="text" value="{{ evento_seleccionado.fecha_fin|date:'Y-m-d' }}"> <br>
                 <b>Es Presencial: </b><input class="form-check-input" type="checkbox" name="es_presencial" {% if evento_seleccionado.es_presencial == True %} checked {% endif %}><br>
 
                 <input class="btn btn-primary mb-2" type="submit" value="Editar">
@@ -46,3 +44,6 @@
 
     </div>
 </div>
+{% block script2 %}
+       <script type="text/javascript" src="{% static 'eventos/js/detalle_evento_end.js' %}"></script>
+{% endblock script2 %}

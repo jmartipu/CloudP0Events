@@ -1,10 +1,10 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-from django.forms import ModelForm, DateTimeField
+from django.forms import ModelForm
 from django import forms
 
 # Create your models here.
+
 
 
 class UserForm(ModelForm):
@@ -22,7 +22,8 @@ class UserForm(ModelForm):
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField('fecha creacion', default=timezone.now())
+    fecha_creacion = models.DateField('fecha creacion')
+    hora_creacion = models.TimeField('hora creacion')
     usuario_creacion = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -34,10 +35,11 @@ class Evento(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     lugar = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)
-    fecha_inicio = models.DateTimeField('fecha inicio')
-    fecha_fin = models.DateTimeField('fecha fin')
+    fecha_inicio = models.DateField('fecha inicio')
+    fecha_fin = models.DateField('fecha fin')
     es_presencial = models.BooleanField()
-    fecha_creacion = models.DateTimeField('fecha creacion', default=timezone.now())
+    fecha_creacion = models.DateField('fecha creacion')
+    hora_creacion = models.TimeField('hora creacion')
     usuario_creacion = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -48,5 +50,4 @@ class EventoForm(ModelForm):
     class Meta:
         model = Evento
         fields = ['nombre', 'categoria', 'lugar', 'direccion', 'fecha_inicio', 'fecha_fin', 'es_presencial']
-
 

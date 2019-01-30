@@ -17,4 +17,3 @@ $('form').submit(function (e){
     console.log(formData)
 
 });
-

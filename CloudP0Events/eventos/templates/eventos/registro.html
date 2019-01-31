@@ -18,12 +18,7 @@
         <form id="formulario_registro" class="form-group" method="post" action="{% url 'eventos:adicionar_usuario' %}">
             {% csrf_token %}
             {{ form|crispy }}
-            <!--<input id="username" name="username" type="text" placeholder="User name" class="form-control input-md" required=""><br>-->
-            <!--<input id="first_name" name="first_name" type="text" placeholder="First name" class="form-control input-md" required=""><br>-->
-            <!--<input id="last_name" name="last_name" type="text" placeholder="Last name" class="form-control input-md" required=""><br>-->
-            <!--<input id="email" name="email" type="email" placeholder="Email" class="form-control input-md" required=""><br>-->
-            <!--<input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required=""><br>-->
-            <!--<input id="password2" name="password2" type="password" placeholder="Verifica password" class="form-control input-md" required=""><br>-->
+
             <input type="submit" value="Registrar"class="btn btn-primary" id="btn_registro">
             <a href="{% url 'eventos:index' %}" class="btn btn-primary">Cancel</a>
 

@@ -119,8 +119,11 @@ def editar_detalle_evento(request, evento_id):
                     evento_editar.fecha_inicio = request.POST['finicio']
                     evento_editar.fecha_fin = request.POST['ffin']
                     evento_editar.es_presencial = True if request.POST.get('es_presencial', None) else False
-                    evento_editar.save()
-                    messages.success(request, "Evento editado con exito!", extra_tags='alert alert-success')
+                    if evento_editar.fecha_fin < evento_editar.fecha_inicio:
+                        messages.error(request, "Error al editar evento, la fecha de fin debe ser mayor a la fecha de inicio!", extra_tags='alert alert-danger')
+                    else:
+                        evento_editar.save()
+                        messages.success(request, "Evento editado con exito!", extra_tags='alert alert-success')
                 except:
                     messages.error(request, "Error al editar el evento!", extra_tags='alert alert-danger')
 
@@ -172,9 +175,12 @@ def adicionar_evento(request):
                                               fecha_creacion=timezone.now().date(), hora_creacion=timezone.now().strftime("%H:%M:%S"),
                                               es_presencial=bool_presencial,
                                               usuario_creacion=usuario_creacion)
-
-                        evento_model.save()
-                        messages.success(request, "Evento creado con exito!", extra_tags='alert alert-success')
+                        if fecha_fin < fecha_inicio:
+                            ruta = 'eventos:crear_evento'
+                            messages.error(request, "Error al crear evento, la fecha de fin debe ser mayor a la fecha de inicio!", extra_tags='alert alert-danger')
+                        else:
+                            evento_model.save()
+                            messages.success(request, "Evento creado con exito!", extra_tags='alert alert-success')
                     except:
                         messages.error(request, "Error creando evento!", extra_tags='alert alert-danger')
 
